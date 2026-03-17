@@ -80,7 +80,7 @@ public class Projectile {
 				else {
 					timer.cancel();
 					setSpawned(false);
-					System.out.println("canceled");
+					
 				}
 				
 			}
@@ -133,7 +133,7 @@ public class Projectile {
 						}
 					}
 					else {
-						System.out.println("hit");
+						
 						e.setHp(e.getHp() - getDamage());
 						if(e.getHp() <= 0) {
 							e.despawn();
@@ -147,7 +147,7 @@ public class Projectile {
 	void checkExplosionKollisions(Enemy e) {
 		if(e.getX() >  getX() - getExplosionRange() - e.getWidth() && e.getX() < getX() + getWidth() + getExplosionRange()*2) {
 			if(e.getY() > getY() - getExplosionRange() - e.getHeight() && e.getY() < getY() + getHeight() + getExplosionRange()*2) {
-				System.out.println("exploded: " + e);
+				
 				e.setHp(e.getHp() - getDamage());
 				if(e.getHp() <= 0) {
 					e.despawn();

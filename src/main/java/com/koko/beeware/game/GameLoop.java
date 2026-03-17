@@ -77,7 +77,7 @@ public class GameLoop {
 					else {
 						Game.wHandler.setWaveOn(false);
 						Game.wHandler.setWaveLength(Constants.WAVE_LENGTH_TICKS);
-						System.out.println("STOPPED");
+						
 					}
 				}
 				else {

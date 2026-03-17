@@ -196,7 +196,7 @@ public abstract class Enemy {
 					setY(i*60 + 30 - getHeight()/2);
 					setCurXTile(getX()/60);
 					setCurYTile(getY()/60);
-					System.out.println("p 1");
+					
 					setDirY(0);
 					setDirX(1);
 					findPath();
@@ -207,7 +207,7 @@ public abstract class Enemy {
 					setY(14*60);
 					setCurXTile(getX()/60);
 					setCurYTile(getY()/60);
-					System.out.println("p 2");
+					
 					setDirY(-1);
 					setDirX(0);
 					findPath();
@@ -218,7 +218,7 @@ public abstract class Enemy {
 					setY(0*60);
 					setCurXTile(getX()/60);
 					setCurYTile(getY()/60);
-					System.out.println("p 3");
+					
 					setDirY(1);
 					setDirX(0);
 					findPath();
@@ -229,7 +229,7 @@ public abstract class Enemy {
 					setY(i*60 + 30 - getHeight()/2);
 					setCurXTile(getX()/60);
 					setCurYTile(getY()/60);
-					System.out.println("p 4");
+					
 					setDirY(0);
 					setDirX(-1);
 					findPath();

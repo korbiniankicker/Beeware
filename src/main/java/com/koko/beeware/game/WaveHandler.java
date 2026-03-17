@@ -18,7 +18,7 @@ public class WaveHandler {
 		setWaveLength(Constants.WAVE_LENGTH_TICKS);
 		Game.player.setMaxTowers(Game.player.getMaxTowers() + 1);
 		setWaveOn(true);
-		System.out.println("STARTED");
+		
 		for(int i = 0; i < Constants.MAX_ENTITIES; i++) {
 			if(Game.wAnt.get(i).getRarity() > 5) { 
 				Game.wAnt.get(i).setRarity(Game.wAnt.get(i).getRarity() - 5);

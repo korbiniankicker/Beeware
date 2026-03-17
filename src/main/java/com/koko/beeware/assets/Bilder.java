@@ -119,7 +119,7 @@ public class Bilder {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			System.out.println("Bilder konnten nicht geladen werden");
+			
 		}
 	}
 

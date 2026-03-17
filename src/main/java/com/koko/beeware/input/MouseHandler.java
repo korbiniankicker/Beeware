@@ -43,7 +43,7 @@ public class MouseHandler implements MouseListener{
 			case 2:Tower.handleSpawns(Game.bomb);break;
 			case 3:Trap.handleSpawns(Game.spike);break;
 			case 4:Tower.handleSpawns(Game.thrower);break;
-			default:System.out.println("Kein Turm ausgewaehlt");break;
+			default:break;
 			}
 		}
 

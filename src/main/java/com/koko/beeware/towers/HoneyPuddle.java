@@ -92,7 +92,7 @@ public class HoneyPuddle {
 				e.setSlowedDown(null);
 				e.setMovDur(e.getL().speed);
 				e.setSpeed(1);
-				System.out.println("unslowed");
+				
 			}
 		}
 		else if(checkKollisions(e) == true) {
@@ -102,7 +102,7 @@ public class HoneyPuddle {
 				s = e.getMovDur() * slowDownPerc;
 				e.setMovDur((int)s);
 				e.setSpeed(e.getSpeed() - 1);;
-				System.out.println(slowDownPerc);
+				
 			}
 		}
 	}

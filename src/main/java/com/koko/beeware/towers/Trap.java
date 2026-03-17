@@ -35,7 +35,7 @@ public class Trap extends Tower{
 				if(Game.grid.map[MouseMotionHandler.curXTile][MouseMotionHandler.curYTile].getType() == TileType.Dirt) {
 					e.get(i).spawn(MouseMotionHandler.curXTile, MouseMotionHandler.curYTile);
 					i = e.size();
-					System.out.println("spawned");
+					
 				}
 			}
 		}
@@ -60,7 +60,7 @@ public class Trap extends Tower{
 		setSpawned(false);
 		Game.player.setHoneycomb(Game.player.getHoneycomb() + getLvl().getPrice()/2);
 		Game.player.setTowers(Game.player.getTowers() - 1);
-		System.out.println("destroyed");
+		
 		closeMenu();
 		Game.sell.setVisible(false);
 		Game.upgrade.setVisible(false);

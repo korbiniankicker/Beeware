@@ -65,7 +65,7 @@ public abstract class Tower {
 		setTileY(-100);
 		Game.player.setHoneycomb(Game.player.getHoneycomb() + getLvl().getPrice()/2);
 		Game.player.setTowers(Game.player.getTowers() - 1);
-		System.out.println("destroyed");
+		
 		closeMenu();
 		Game.sell.setVisible(false);
 		Game.upgrade.setVisible(false);
@@ -224,7 +224,7 @@ public abstract class Tower {
 				if(Game.grid.map[MouseMotionHandler.curXTile][MouseMotionHandler.curYTile].getType().buildable == true) {
 					e.get(i).spawn(MouseMotionHandler.curXTile, MouseMotionHandler.curYTile);
 					i = e.size();
-					System.out.println("spawned");
+					
 				}
 			}
 		}
@@ -244,7 +244,7 @@ public abstract class Tower {
 						//getTarget().despawn();
 						setAttacking(false);
 					}
-					System.out.println("attacked");
+					
 				}
 			}
 			else {
@@ -275,7 +275,7 @@ public abstract class Tower {
 								nextLvl = null;
 								Game.player.setHoneycomb(Game.player.getHoneycomb() - Lvl.Catapultcomb.getPrice());
 							};break;
-			case Catapultcomb: System.out.println("Max Lvl");break;
+			case Catapultcomb: break;
 		//Honeybomb lvls		
 			case Honeypop: if(Game.player.getHoneycomb() >= Lvl.Honeyburst.getPrice()) {
 								setLvl(Lvl.Honeyburst);
@@ -287,7 +287,7 @@ public abstract class Tower {
 								nextLvl = null;
 								Game.player.setHoneycomb(Game.player.getHoneycomb() - Lvl.Honeyexplosion.getPrice());
 							 };break;
-			case Honeyexplosion: System.out.println("Max Lvl");break;
+			case Honeyexplosion: break;
 		//Combspike lvls
 			case Piece: if(Game.player.getHoneycomb() >= Lvl.Sharp.getPrice()) {
 							setLvl(Lvl.Sharp);
@@ -299,7 +299,7 @@ public abstract class Tower {
 							nextLvl = null;
 							Game.player.setHoneycomb(Game.player.getHoneycomb() - Lvl.Spike.getPrice());
 						};break;
-			case Spike: System.out.println("Max Lvl");break;
+			case Spike: break;
 		//Thrower lvls
 			case Thrower: if(Game.player.getHoneycomb() >= Lvl.Launcher.getPrice()) {
 							setLvl(Lvl.Launcher);
@@ -311,7 +311,7 @@ public abstract class Tower {
 							nextLvl = null;
 							Game.player.setHoneycomb(Game.player.getHoneycomb() - Lvl.Shooter.getPrice());
 						   };break;
-			case Shooter: System.out.println("Max Lvl");break;
+			case Shooter: break;
 		default:break;
 		}
 	}
