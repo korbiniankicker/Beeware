@@ -1,8 +1,8 @@
 # Beeware (CS50 final project)
-#### Video Demo:  <PASTE_URL_HERE>
+#### Video Demo:  
 #### Description:
 
-Beeware is a small desktop tower-defense game written in Java. The game uses the Swing UI toolkit (Java2D rendering inside a Swing component) and is designed to be distributed as a runnable `.jar` file. In Beeware, the player defends a beehive-themed map by placing towers on a tile grid and surviving enemy ant waves that attack the beehive. As enemies are defeated, the player gains resources (honeycomb) that can be spent to place additional towers and upgrade existing ones. The game ends when the player’s health reaches zero (aka. no guard bees are left).
+Beeware is a small desktop tower-defense game written in Java. The game uses the Swing UI toolkit (Java2D rendering inside a Swing component) and is designed to be distributed as a runnable .jar file. In Beeware, the player defends a beehive-themed map by placing towers on a tile grid and surviving enemy ant waves that attack the beehive. As enemies are defeated, the player gains resources (honeycomb) that can be spent to place additional towers and upgrade existing ones. The game ends when the player’s health reaches zero (aka. no guard bees are left).
 
 This project was built to practice object-oriented programming, game-loop structure, state management, and packaging a Java application properly. I decided to use Java due to object-oriented programming providing a good logical structure for the game through aspects like inheritence and because we learned and used it in class during years 10 to 12. I used maven (though I didn't use any dependecies) for packaging and compiling the project, learning some of it's core features as it is a useful tool when working with java applications.
 
@@ -19,7 +19,7 @@ mvn package
 ```
 
 This produces output artifacts in `target/`:
- `target/beeware-1.0.0-SNAPSHOT.jar`, the standard JAR with your compiled classes and resources and
+ `target/beeware-1.0.0.jar`, the standard JAR with compiled classes and resources.
 
 #### Run
 
@@ -83,13 +83,9 @@ Within `src/main/java/com/koko/beeware/`, the project is organized into packages
 ### Design choices and trade-offs
 
 
-#### Centralized game state
-The current design uses a central `Game` class with many shared/static objects. This is straightforward for a small game because any system (UI, loop, entities) can access the current state. The main trade-off is that global state can make the code harder to reason about as the project grows. A future improvement would be to replace some of the global/static access with a `GameState` instance passed into the loop, renderer, and handlers to improve encapsulation and testability.
+#### MVC
+The current design uses a central `Game` class with many shared/static objects. This is straightforward for a small game because any system (UI, loop, entities) can access the current state. The main trade-off is that global state can make the code harder to reason about as the project grows. A future improvement would be to replace some of the global/static access with a `GameState` instance passed into the loop, renderer, and handlers to improve encapsulation and testability and more closely differenciate between model and controller. 
 
-#### Fixed tick loop
-The game uses a fixed update tick in `GameLoop`. This is a common pattern for simple games because it keeps movement and cooldown timing consistent. A future improvement would be to separate update and render responsibilities more strictly (and to align Swing UI updates with Swing’s event thread model), but for the scale of this project, the approach keeps the logic accessible.
+The game uses a fixed update tick in `GameLoop`. This is a common pattern for simple games because it keeps movement and cooldown timing consistent. A future improvement would be to separate update and render responsibilities more strictly, but for the scale of this project, the approach keeps the logic accessible.
 
-### Notes for submission
-- Replace `<PASTE_URL_HERE>` above with your actual video demo URL.
-- The distributable artifact is `target/beeware-1.0.0-SNAPSHOT-all.jar`.
 
