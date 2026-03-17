@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 
+import com.koko.beeware.Constants;
 import com.koko.beeware.assets.Bilder;
 import com.koko.beeware.game.Game;
 import com.koko.beeware.game.WaveHandler;
@@ -44,19 +45,19 @@ public class Player {
 				switch(Game.player.getSelected()) {
 				case 1:	if(Game.grid.map[MouseMotionHandler.curXTile][MouseMotionHandler.curYTile].getType().buildable == false)
 						g.setColor(new Color(230, 20, 0, 100));
-						g.fillRect(MouseMotionHandler.curXTile*60, MouseMotionHandler.curYTile*60, 60, 60);
-						g.fillRect(MouseMotionHandler.curXTile*60 - Game.catapult[0].getRange(), MouseMotionHandler.curYTile*60 - Game.catapult[0].getRange(), 2*Game.catapult[0].getRange() + 60, 2*Game.catapult[0].getRange() + 60);break;
+						g.fillRect(MouseMotionHandler.curXTile*Constants.TILE_SIZE, MouseMotionHandler.curYTile*Constants.TILE_SIZE, Constants.TILE_SIZE, Constants.TILE_SIZE);
+						g.fillRect(MouseMotionHandler.curXTile*Constants.TILE_SIZE - Game.catapult.get(0).getRange(), MouseMotionHandler.curYTile*Constants.TILE_SIZE - Game.catapult.get(0).getRange(), 2*Game.catapult.get(0).getRange() + Constants.TILE_SIZE, 2*Game.catapult.get(0).getRange() + Constants.TILE_SIZE);break;
 				case 2: if(Game.grid.map[MouseMotionHandler.curXTile][MouseMotionHandler.curYTile].getType().buildable == false)
 						g.setColor(new Color(230, 20, 0, 100));
-						g.fillRect(MouseMotionHandler.curXTile*60, MouseMotionHandler.curYTile*60, 60, 60);
-						g.fillRect(MouseMotionHandler.curXTile*60 - Game.bomb[0].getRange(), MouseMotionHandler.curYTile*60 - Game.bomb[0].getRange(), 2*Game.bomb[0].getRange() + 60, 2*Game.bomb[0].getRange() + 60);break;
+						g.fillRect(MouseMotionHandler.curXTile*Constants.TILE_SIZE, MouseMotionHandler.curYTile*Constants.TILE_SIZE, Constants.TILE_SIZE, Constants.TILE_SIZE);
+						g.fillRect(MouseMotionHandler.curXTile*Constants.TILE_SIZE - Game.bomb.get(0).getRange(), MouseMotionHandler.curYTile*Constants.TILE_SIZE - Game.bomb.get(0).getRange(), 2*Game.bomb.get(0).getRange() + Constants.TILE_SIZE, 2*Game.bomb.get(0).getRange() + Constants.TILE_SIZE);break;
 				case 3: if(Game.grid.map[MouseMotionHandler.curXTile][MouseMotionHandler.curYTile].getType() != TileType.Dirt)
 						g.setColor(new Color(230, 20, 0, 100));
-						g.fillRect(MouseMotionHandler.curXTile*60, MouseMotionHandler.curYTile*60, 60, 60);break;
+						g.fillRect(MouseMotionHandler.curXTile*Constants.TILE_SIZE, MouseMotionHandler.curYTile*Constants.TILE_SIZE, Constants.TILE_SIZE, Constants.TILE_SIZE);break;
 				case 4: if(Game.grid.map[MouseMotionHandler.curXTile][MouseMotionHandler.curYTile].getType().buildable == false)
 						g.setColor(new Color(230, 20, 0, 100));
-						g.fillRect(MouseMotionHandler.curXTile*60, MouseMotionHandler.curYTile*60, 60, 60);
-						g.fillRect(MouseMotionHandler.curXTile*60 - Game.thrower[0].getRange(), MouseMotionHandler.curYTile*60 - Game.thrower[0].getRange(), 2*Game.thrower[0].getRange() + 60, 2*Game.thrower[0].getRange() + 60);break;		
+						g.fillRect(MouseMotionHandler.curXTile*Constants.TILE_SIZE, MouseMotionHandler.curYTile*Constants.TILE_SIZE, Constants.TILE_SIZE, Constants.TILE_SIZE);
+						g.fillRect(MouseMotionHandler.curXTile*Constants.TILE_SIZE - Game.thrower.get(0).getRange(), MouseMotionHandler.curYTile*Constants.TILE_SIZE - Game.thrower.get(0).getRange(), 2*Game.thrower.get(0).getRange() + Constants.TILE_SIZE, 2*Game.thrower.get(0).getRange() + Constants.TILE_SIZE);break;		
 				default:break;
 				}
 		
@@ -65,10 +66,12 @@ public class Player {
 		//stats
 		g.setFont(new Font("Noteworthy",Font.BOLD,15));
 		g.setColor(Color.black);
-		int width = (int)((Game.wHandler.getWaveLength() / 5000.0) * 100.0);
-		g.fillRect(10, 10, width, 20);
+		int width = (int)((Game.wHandler.getWaveLength() / (double) Constants.WAVE_LENGTH_TICKS) * Constants.HUD_WAVE_BAR_W);
+		if (width < 0) width = 0;
+		if (width > Constants.HUD_WAVE_BAR_W) width = Constants.HUD_WAVE_BAR_W;
+		g.fillRect(Constants.HUD_WAVE_BAR_X, Constants.HUD_WAVE_BAR_Y, width, Constants.HUD_WAVE_BAR_H);
 		g.setColor(Color.darkGray);
-		g.drawRect(10, 10, 100, 20);
+		g.drawRect(Constants.HUD_WAVE_BAR_X, Constants.HUD_WAVE_BAR_Y, Constants.HUD_WAVE_BAR_W, Constants.HUD_WAVE_BAR_H);
 		g.setColor(Color.yellow);
 		g.drawImage(Bilder.bee[0], 10, 80, 30, 30, null);
 		g.drawString(String.valueOf(Game.player.getHP()), 33, 100);
@@ -85,27 +88,38 @@ public class Player {
 			
 	}
 	public void reset() {
-		for(int i = 0; i < 100; i++) {
-			Game.spike[i] = new Combspike();
-			Game.bomb[i] = new Honeybomb();
-			Game.catapult[i] = new Catapult();
-			Game.drone[i] = new Drone();
-			Game.sAnt[i] = new SoliderAnt();
-			Game.mAnt[i] = new MajorAnt();
-			Game.wAnt[i] = new WorkerAnt();
-			Game.tank[i] = new StickTank();
-			Game.expl[i] = new HoneyExplosion();
-			Game.projectiles[i] = new Projectile();
-			Game.puddle[i] = new HoneyPuddle();
-			Game.thrower[i] = new HoneyPuddleThrower();
-			Game.obsticles[i] = new Obsticle();
-			Game.grid = new TileGrid(TileGrid.mapInt);
-			Game.expl[i] = new HoneyExplosion();
-			Game.projectiles[i] = new Projectile();
-			Game.puddle[i] = new HoneyPuddle();
+		Game.spike.clear();
+		Game.bomb.clear();
+		Game.catapult.clear();
+		Game.drone.clear();
+		Game.sAnt.clear();
+		Game.mAnt.clear();
+		Game.wAnt.clear();
+		Game.tank.clear();
+		Game.expl.clear();
+		Game.projectiles.clear();
+		Game.puddle.clear();
+		Game.thrower.clear();
+		Game.obsticles.clear();
+		for(int i = 0; i < Constants.MAX_ENTITIES; i++) {
+			Game.spike.add(new Combspike());
+			Game.bomb.add(new Honeybomb());
+			Game.catapult.add(new Catapult());
+			Game.drone.add(new Drone());
+			Game.sAnt.add(new SoliderAnt());
+			Game.mAnt.add(new MajorAnt());
+			Game.wAnt.add(new WorkerAnt());
+			Game.tank.add(new StickTank());
+			Game.expl.add(new HoneyExplosion());
+			Game.projectiles.add(new Projectile());
+			Game.puddle.add(new HoneyPuddle());
+			Game.thrower.add(new HoneyPuddleThrower());
+			Game.obsticles.add(new Obsticle());
 		}
+		Game.grid = new TileGrid(TileGrid.mapInt);
+		Game.bee.clear();
 		for(int i = 0; i < 10; i++) {
-			Game.bee[i] = new Bee(3*60, 12*60, 15*60, 12*60);
+			Game.bee.add(new Bee(3*Constants.TILE_SIZE, 12*Constants.TILE_SIZE, 15*Constants.TILE_SIZE, 12*Constants.TILE_SIZE));
 		}
 		Game.wHandler = new WaveHandler();
 		Game.player = new Player();

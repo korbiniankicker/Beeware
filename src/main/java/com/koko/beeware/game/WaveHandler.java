@@ -1,5 +1,8 @@
 package com.koko.beeware.game;
 
+import java.util.List;
+
+import com.koko.beeware.Constants;
 import com.koko.beeware.entities.Enemy;
 
 public class WaveHandler {
@@ -7,34 +10,34 @@ public class WaveHandler {
 	private int lvl;
 	private int wave;
 	private int difficulty;
-	private int waveLength = 5000;
+	private int waveLength = Constants.WAVE_LENGTH_TICKS;
 	private boolean waveOn;
 	
 	public void startWave() {
 		setWave(getWave() + 1);
-		setWaveLength(5000);
+		setWaveLength(Constants.WAVE_LENGTH_TICKS);
 		Game.player.setMaxTowers(Game.player.getMaxTowers() + 1);
 		setWaveOn(true);
 		System.out.println("STARTED");
-		for(int i = 0; i < 100; i++) {
-			if(Game.wAnt[i].getRarity() > 5) { 
-				Game.wAnt[i].setRarity(Game.wAnt[i].getRarity() - 5);
+		for(int i = 0; i < Constants.MAX_ENTITIES; i++) {
+			if(Game.wAnt.get(i).getRarity() > 5) { 
+				Game.wAnt.get(i).setRarity(Game.wAnt.get(i).getRarity() - 5);
 			}
-			if(Game.mAnt[i].getRarity() > 30) {
-				Game.mAnt[i].setRarity(Game.mAnt[i].getRarity() - 1);
+			if(Game.mAnt.get(i).getRarity() > 30) {
+				Game.mAnt.get(i).setRarity(Game.mAnt.get(i).getRarity() - 1);
 			}
-			if(Game.sAnt[i].getRarity() > 50) {
-				Game.sAnt[i].setRarity(Game.sAnt[i].getRarity() - 1);
+			if(Game.sAnt.get(i).getRarity() > 50) {
+				Game.sAnt.get(i).setRarity(Game.sAnt.get(i).getRarity() - 1);
 			}
 		}
 	}
-	public void spawnWave(Enemy e[]) {
+	public void spawnWave(List<? extends Enemy> e) {
 		if(isWaveOn()) {
-			for(int i = 0;i < e.length; i++) {
-				if(Game.r(e[i].getRarity()*1000) == 1) {
-					if(e[i].isSpawned() == false) {
-						e[i].spawn();
-						i = e.length;
+			for(int i = 0; i < e.size(); i++) {
+				if(Game.r(e.get(i).getRarity()*1000) == 1) {
+					if(e.get(i).isSpawned() == false) {
+						e.get(i).spawn();
+						i = e.size();
 					}
 				}
 			}

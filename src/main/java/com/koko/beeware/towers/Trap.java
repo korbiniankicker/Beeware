@@ -1,5 +1,8 @@
 package com.koko.beeware.towers;
 
+import java.util.List;
+
+import com.koko.beeware.Constants;
 import com.koko.beeware.entities.Enemy;
 import com.koko.beeware.game.Game;
 import com.koko.beeware.input.MouseMotionHandler;
@@ -9,14 +12,14 @@ public class Trap extends Tower{
 
 	public Trap() {}
 
-	public void detonate(Enemy e[]) {
+	public void detonate(List<? extends Enemy> e) {
 		if(isSpawned()) {
-			for(int i = 0;i < e.length; i++) {
-				if(e[i].getX() > (getTileX()*60) && e[i].getX() < (getTileX()*60) + 60) {
-					if(e[i].getY() > (getTileY()*60) && e[i].getY() < (getTileY()*60) + 60) {
-						e[i].setHp(e[i].getHp() - getLvl().getDam());
-						if(e[i].getHp() <= 0) {
-							e[i].despawn();
+			for(int i = 0; i < e.size(); i++) {
+				if(e.get(i).getX() > (getTileX()*Constants.TILE_SIZE) && e.get(i).getX() < (getTileX()*Constants.TILE_SIZE) + Constants.TILE_SIZE) {
+					if(e.get(i).getY() > (getTileY()*Constants.TILE_SIZE) && e.get(i).getY() < (getTileY()*Constants.TILE_SIZE) + Constants.TILE_SIZE) {
+						e.get(i).setHp(e.get(i).getHp() - getLvl().getDam());
+						if(e.get(i).getHp() <= 0) {
+							e.get(i).despawn();
 						}
 						destroy();
 						Game.player.setHoneycomb(Game.player.getHoneycomb() - getLvl().getPrice()/2);
@@ -26,12 +29,12 @@ public class Trap extends Tower{
 		}
 	}
 	
-	public static void handleSpawns(Tower e[]) {
-		for(int i = 0; i < e.length; i++) {
-			if(e[i].isSpawned() == false) {
+	public static void handleSpawns(List<? extends Tower> e) {
+		for(int i = 0; i < e.size(); i++) {
+			if(e.get(i).isSpawned() == false) {
 				if(Game.grid.map[MouseMotionHandler.curXTile][MouseMotionHandler.curYTile].getType() == TileType.Dirt) {
-					e[i].spawn(MouseMotionHandler.curXTile, MouseMotionHandler.curYTile);
-					i = e.length;
+					e.get(i).spawn(MouseMotionHandler.curXTile, MouseMotionHandler.curYTile);
+					i = e.size();
 					System.out.println("spawned");
 				}
 			}
@@ -62,25 +65,25 @@ public class Trap extends Tower{
 		Game.sell.setVisible(false);
 		Game.upgrade.setVisible(false);
 	}
-	public static void handleMenu(Tower e[]) {
+	public static void handleMenu(List<? extends Tower> e) {
 		if(Game.grid.map[MouseMotionHandler.curXTile][MouseMotionHandler.curYTile].getType() == TileType.Trap) {				
-			for(int i = 0; i < 100; i++) {
-				if(e[i].getTileX() == MouseMotionHandler.curXTile && e[i].getTileY() == MouseMotionHandler.curYTile) {
-					if(e[i].isChosen()) {
-						e[i].closeMenu();
+			for(int i = 0; i < e.size(); i++) {
+				if(e.get(i).getTileX() == MouseMotionHandler.curXTile && e.get(i).getTileY() == MouseMotionHandler.curYTile) {
+					if(e.get(i).isChosen()) {
+						e.get(i).closeMenu();
 						Game.sell.setVisible(false);
 						Game.upgrade.setVisible(false);
 					}
-					else if(e[i].isChosen() == false) {
-						e[i].openMenu();
+					else if(e.get(i).isChosen() == false) {
+						e.get(i).openMenu();
 						Game.sell.setVisible(true);
-						Game.sell.setBounds(e[i].getTileX() * 60 + 70, e[i].getTileY() * 60 + 70, 80, 20);
+						Game.sell.setBounds(e.get(i).getTileX() * Constants.TILE_SIZE + 70, e.get(i).getTileY() * Constants.TILE_SIZE + 70, 80, 20);
 						Game.upgrade.setVisible(true);
-						Game.upgrade.setBounds(e[i].getTileX() * 60 + 70, e[i].getTileY() * 60 + 40, 80, 20);
+						Game.upgrade.setBounds(e.get(i).getTileX() * Constants.TILE_SIZE + 70, e.get(i).getTileY() * Constants.TILE_SIZE + 40, 80, 20);
 					}
 				}
 				else {
-					e[i].closeMenu();
+					e.get(i).closeMenu();
 				}
 			}	
 		}

@@ -6,9 +6,10 @@ import java.awt.event.MouseEvent;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
+import com.koko.beeware.Constants;
 import com.koko.beeware.game.ActionHandler;
 import com.koko.beeware.game.Game;
-import com.koko.beeware.game.buttonHandler;
+import com.koko.beeware.game.ButtonHandler;
 import com.koko.beeware.input.KeyHandler;
 import com.koko.beeware.input.MouseHandler;
 import com.koko.beeware.input.MouseMotionHandler;
@@ -36,6 +37,10 @@ public class Gui {
 		f.setVisible(true);
 		
 	}
+
+	public Gui() {
+		this(Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
+	}
 	
 	private void buttons() {
 		setupButton(Game.menu, f, false, 0);
@@ -59,10 +64,10 @@ public class Gui {
 	private void addListener(JButton b, final int number) {
 		b.addMouseListener(new MouseAdapter() {
 			public void mouseEntered(MouseEvent e){
-				buttonHandler.pressed[number] = true;
+				ButtonHandler.pressed[number] = true;
 			}
 			public void mouseExited(MouseEvent e){
-				buttonHandler.pressed[number] = false;
+				ButtonHandler.pressed[number] = false;
 			}
 		});
 	}

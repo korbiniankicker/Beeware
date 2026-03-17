@@ -4,11 +4,13 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.util.List;
 
+import com.koko.beeware.Constants;
 import com.koko.beeware.assets.Bilder;
 import com.koko.beeware.entities.Enemy;
 import com.koko.beeware.game.Game;
-import com.koko.beeware.game.buttonHandler;
+import com.koko.beeware.game.ButtonHandler;
 import com.koko.beeware.input.MouseMotionHandler;
 import com.koko.beeware.world.Lvl;
 import com.koko.beeware.world.TileType;
@@ -51,7 +53,7 @@ public abstract class Tower {
 				Game.player.setHoneycomb(Game.player.getHoneycomb() - getPrice());
 				setLvl(getL());
 				nextLvl = getBaseNextLvl();
-				setTarget(Game.wAnt[0]);
+				setTarget(Game.wAnt.get(0));
 			}
 		}
 	}
@@ -68,25 +70,25 @@ public abstract class Tower {
 		Game.sell.setVisible(false);
 		Game.upgrade.setVisible(false);
 	}
-	public static void handleMenu(Tower e[]) {
+	public static void handleMenu(List<? extends Tower> e) {
 		if(Game.grid.map[MouseMotionHandler.curXTile][MouseMotionHandler.curYTile].getType() == TileType.Tower) {				
-			for(int i = 0; i < 100; i++) {
-				if(e[i].getTileX() == MouseMotionHandler.curXTile && e[i].getTileY() == MouseMotionHandler.curYTile) {
-					if(e[i].isChosen()) {
-						e[i].closeMenu();
+			for(int i = 0; i < e.size(); i++) {
+				if(e.get(i).getTileX() == MouseMotionHandler.curXTile && e.get(i).getTileY() == MouseMotionHandler.curYTile) {
+					if(e.get(i).isChosen()) {
+						e.get(i).closeMenu();
 						Game.sell.setVisible(false);
 						Game.upgrade.setVisible(false);
 					}
-					else if(e[i].isChosen() == false) {
-						e[i].openMenu();
+					else if(e.get(i).isChosen() == false) {
+						e.get(i).openMenu();
 						Game.sell.setVisible(true);
-						Game.sell.setBounds(e[i].getTileX() * 60 + 70, e[i].getTileY() * 60 + 70, 80, 20);
+						Game.sell.setBounds(e.get(i).getTileX() * Constants.TILE_SIZE + 70, e.get(i).getTileY() * Constants.TILE_SIZE + 70, 80, 20);
 						Game.upgrade.setVisible(true);
-						Game.upgrade.setBounds(e[i].getTileX() * 60 + 70, e[i].getTileY() * 60 + 40, 80, 20);
+						Game.upgrade.setBounds(e.get(i).getTileX() * Constants.TILE_SIZE + 70, e.get(i).getTileY() * Constants.TILE_SIZE + 40, 80, 20);
 					}
 				}
 				else {
-					e[i].closeMenu();
+					e.get(i).closeMenu();
 				}
 			}	
 		}
@@ -103,24 +105,24 @@ public abstract class Tower {
 	public void draw(Graphics2D g) {
 		if(isSpawned()) {
 			g.setColor(Color.blue);
-			g.drawImage(Bilder.towerBase, getTileX()*60 + 10, getTileY()*60 + 10, 40, 40, null);
-			Bilder.rotate(getTexture(), calcRot(), g, getTileX()*60, getTileY()*60);
+			g.drawImage(Bilder.towerBase, getTileX()*Constants.TILE_SIZE + 10, getTileY()*Constants.TILE_SIZE + 10, 40, 40, null);
+			Bilder.rotate(getTexture(), calcRot(), g, getTileX()*Constants.TILE_SIZE, getTileY()*Constants.TILE_SIZE);
 			g.setColor(Color.black);
-			g.drawString(String.valueOf(getLvl()), getTileX()*60, getTileY()*60);
+			g.drawString(String.valueOf(getLvl()), getTileX()*Constants.TILE_SIZE, getTileY()*Constants.TILE_SIZE);
 		}
 	}
 	public void drawMenu(Graphics2D g) {
 		g.setColor(Color.blue);
-		g.drawRect((getTileX()*60) - getRange(), (getTileY()*60) - getRange(), getRange()*2 + 60, getRange()*2 + 60);
+		g.drawRect((getTileX()*Constants.TILE_SIZE) - getRange(), (getTileY()*Constants.TILE_SIZE) - getRange(), getRange()*2 + Constants.TILE_SIZE, getRange()*2 + Constants.TILE_SIZE);
 		g.setColor(Color.black);
-		g.drawImage(Bilder.menuSmall, getTileX()*60 + 60, getTileY()*60, 100, 100, null);
+		g.drawImage(Bilder.menuSmall, getTileX()*Constants.TILE_SIZE + Constants.TILE_SIZE, getTileY()*Constants.TILE_SIZE, 100, 100, null);
 		g.setFont(new Font("Noteworthy",Font.BOLD, 10));
-		g.drawString("Lvl: " + String.valueOf(getLvl()), getTileX()*60 + 70, getTileY()* 60 + 13);
-		g.drawString("Damage: " + String.valueOf(getLvl().getDam()), getTileX()*60 + 70, getTileY()* 60 + 23);
-		g.drawString("Cooldown: " + String.valueOf(getLvl().getCooldown() / 100 + "s"), getTileX()*60 + 70, getTileY()* 60 + 33);
+		g.drawString("Lvl: " + String.valueOf(getLvl()), getTileX()*Constants.TILE_SIZE + 70, getTileY()* Constants.TILE_SIZE + 13);
+		g.drawString("Damage: " + String.valueOf(getLvl().getDam()), getTileX()*Constants.TILE_SIZE + 70, getTileY()* Constants.TILE_SIZE + 23);
+		g.drawString("Cooldown: " + String.valueOf(getLvl().getCooldown() / 100 + "s"), getTileX()*Constants.TILE_SIZE + 70, getTileY()* Constants.TILE_SIZE + 33);
 		g.setFont(new Font("Noteworthy",Font.BOLD, 9));
 		//Generelles
-		buttonHandler.drawButtons(g);
+		ButtonHandler.drawButtons(g);
 		if(nextLvl != null) {
 			g.drawString(String.valueOf(nextLvl.price), Game.upgrade.getX() + 60, Game.upgrade.getY() + 14);
 		} 
@@ -131,10 +133,10 @@ public abstract class Tower {
 	}
 	
 	public void shoot(Tower t,float speed,int damage, int width, int height, BufferedImage texture, boolean explosive, int explosionRange, boolean puddle, float slowPerc) {
-		for(int i = 0; i < Game.projectiles.length; i++) {
-			if(Game.projectiles[i].isSpawned() == false) {
-				Game.projectiles[i].spawn(t, speed, damage, width, height, texture, explosive, explosionRange, puddle, slowPerc);
-				i = Game.projectiles.length;
+		for(int i = 0; i < Game.projectiles.size(); i++) {
+			if(Game.projectiles.get(i).isSpawned() == false) {
+				Game.projectiles.get(i).spawn(t, speed, damage, width, height, texture, explosive, explosionRange, puddle, slowPerc);
+				i = Game.projectiles.size();
 			}
 			else {
 				i++;
@@ -143,18 +145,18 @@ public abstract class Tower {
 	}
 	
 	public float calcRot() {
-		double angleTemp = Math.atan2(getTarget().getY() - getTileY()*60, getTarget().getX() - getTileX()*60);
+		double angleTemp = Math.atan2(getTarget().getY() - getTileY()*Constants.TILE_SIZE, getTarget().getX() - getTileX()*Constants.TILE_SIZE);
 		return (float) Math.toDegrees(angleTemp) + 90;
 	}
 	
 	public void tryAquireTarget() {
 		if(isAttacking() == false) {
-			for(int i = 0; i < 100; i++) {
-				checkHitboxEnemy(Game.wAnt[i]);
-				checkHitboxEnemy(Game.mAnt[i]);
-				checkHitboxEnemy(Game.sAnt[i]);
-				checkHitboxEnemy(Game.drone[i]);
-				checkHitboxEnemy(Game.tank[i]);
+			for(int i = 0; i < Game.wAnt.size(); i++) {
+				checkHitboxEnemy(Game.wAnt.get(i));
+				checkHitboxEnemy(Game.mAnt.get(i));
+				checkHitboxEnemy(Game.sAnt.get(i));
+				checkHitboxEnemy(Game.drone.get(i));
+				checkHitboxEnemy(Game.tank.get(i));
 			}
 		}
 		else {
@@ -163,15 +165,15 @@ public abstract class Tower {
 	}
 	
 	public void checkHitboxEnemy(Enemy e) {
-		if(e.getX() > getTileX()*60 - getRange() && e.getX() + e.getWidth() < getTileX()*60 + 60 + getRange()) {
-			if(e.getY() > getTileY()*60 - getRange() && e.getY() + e.getHeight() < getTileY()*60 + 60 + getRange()) {
+		if(e.getX() > getTileX()*Constants.TILE_SIZE - getRange() && e.getX() + e.getWidth() < getTileX()*Constants.TILE_SIZE + Constants.TILE_SIZE + getRange()) {
+			if(e.getY() > getTileY()*Constants.TILE_SIZE - getRange() && e.getY() + e.getHeight() < getTileY()*Constants.TILE_SIZE + Constants.TILE_SIZE + getRange()) {
 				setTarget(e);
 				setAttacking(true);
 			}
 		}
 	}
 	public void checkHitboxTarget() {
-		if(getTarget().getX() > getTileX()*60 - getRange() && getTarget().getX() + getTarget().getWidth() < getTileX()*60 + 60 + getRange() && getTarget().getY() > getTileY()*60 - getRange() && getTarget().getY() + getTarget().getHeight() < getTileY()*60 + 60 + getRange()) {
+		if(getTarget().getX() > getTileX()*Constants.TILE_SIZE - getRange() && getTarget().getX() + getTarget().getWidth() < getTileX()*Constants.TILE_SIZE + Constants.TILE_SIZE + getRange() && getTarget().getY() > getTileY()*Constants.TILE_SIZE - getRange() && getTarget().getY() + getTarget().getHeight() < getTileY()*Constants.TILE_SIZE + Constants.TILE_SIZE + getRange()) {
 				setAttacking(true);
 		}
 		else {
@@ -216,12 +218,12 @@ public abstract class Tower {
 		}
 	}
 	
-	public static void handleSpawns(Tower e[]) {
-		for(int i = 0; i < e.length; i++) {
-			if(e[i].isSpawned() == false) {
+	public static void handleSpawns(List<? extends Tower> e) {
+		for(int i = 0; i < e.size(); i++) {
+			if(e.get(i).isSpawned() == false) {
 				if(Game.grid.map[MouseMotionHandler.curXTile][MouseMotionHandler.curYTile].getType().buildable == true) {
-					e[i].spawn(MouseMotionHandler.curXTile, MouseMotionHandler.curYTile);
-					i = e.length;
+					e.get(i).spawn(MouseMotionHandler.curXTile, MouseMotionHandler.curYTile);
+					i = e.size();
 					System.out.println("spawned");
 				}
 			}

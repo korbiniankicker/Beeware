@@ -17,7 +17,6 @@ public class Catapult extends Tower{
 		setTexture(Bilder.combslingStill);
 		setExplosive(false);
 		setPuddleSpawner(false);
-		setTarget(Game.wAnt[0]);
 	}
 	
 	

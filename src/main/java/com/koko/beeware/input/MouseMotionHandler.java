@@ -3,6 +3,7 @@ package com.koko.beeware.input;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 
+import com.koko.beeware.Constants;
 
 public class MouseMotionHandler implements MouseMotionListener{
 
@@ -21,12 +22,12 @@ public class MouseMotionHandler implements MouseMotionListener{
 	public void mouseMoved(MouseEvent e) {
 		
 		x = e.getX();
-		y = e.getY() - 27;
+		y = e.getY() - Constants.MOUSE_Y_OFFSET;
 		
-		for(int i = 0; i < 15; i++) {
-			for(int m = 0; m < 15; m++) {
-				if(x > i*60 && x < i*60 + 60) {
-					if(y > m*60 && y < m*60 + 60) {
+		for(int i = 0; i < Constants.GRID_SIZE; i++) {
+			for(int m = 0; m < Constants.GRID_SIZE; m++) {
+				if(x > i*Constants.TILE_SIZE && x < i*Constants.TILE_SIZE + Constants.TILE_SIZE) {
+					if(y > m*Constants.TILE_SIZE && y < m*Constants.TILE_SIZE + Constants.TILE_SIZE) {
 						curXTile = i;
 						curYTile = m;
 					}

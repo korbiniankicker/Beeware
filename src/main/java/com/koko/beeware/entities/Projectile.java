@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import com.koko.beeware.Constants;
 import com.koko.beeware.assets.Bilder;
 import com.koko.beeware.game.Game;
 import com.koko.beeware.towers.HoneyExplosion;
@@ -40,8 +41,8 @@ public class Projectile {
 		setDamage(damage);
 		setSpeed(speed);
 		setSource(t);
-		setX(t.getTileX()*60 + 30);
-		setY(t.getTileY()*60 + 30);	
+		setX(t.getTileX()*Constants.TILE_SIZE + Constants.TILE_SIZE / 2);
+		setY(t.getTileY()*Constants.TILE_SIZE + Constants.TILE_SIZE / 2);	
 		setWidth(width);
 		setHeight(height);
 		setTexture(texture);
@@ -66,12 +67,12 @@ public class Projectile {
 				
 				if(isSpawned()) {
 					checkIfOnScreen();
-					for(int i = 0; i < 100; i++) {
-						checkKollisions(Game.wAnt[i]);
-						checkKollisions(Game.mAnt[i]);
-						checkKollisions(Game.sAnt[i]);
-						checkKollisions(Game.drone[i]);
-						checkKollisions(Game.tank[i]);
+					for(int i = 0; i < Game.wAnt.size(); i++) {
+						checkKollisions(Game.wAnt.get(i));
+						checkKollisions(Game.mAnt.get(i));
+						checkKollisions(Game.sAnt.get(i));
+						checkKollisions(Game.drone.get(i));
+						checkKollisions(Game.tank.get(i));
 					}
 					x += dirX * 10 * speed;
 					y += dirY * 10 * speed;
@@ -124,10 +125,10 @@ public class Projectile {
 				}
 				else {
 					if(spawnsPuddle) {
-						for(int i = 0; i < 100; i++) {
-							if(Game.puddle[i].isSpawned() == false) {
-								Game.puddle[i].spawn(getX() - 50/2, getY() - 50/2, 50, 50, Bilder.honeyPuddle, 1500, getSlowPerc());
-								i = 100;
+						for(int i = 0; i < Game.puddle.size(); i++) {
+							if(Game.puddle.get(i).isSpawned() == false) {
+								Game.puddle.get(i).spawn(getX() - 50/2, getY() - 50/2, 50, 50, Bilder.honeyPuddle, 1500, getSlowPerc());
+								i = Game.puddle.size();
 							}
 						}
 					}
@@ -156,17 +157,17 @@ public class Projectile {
 	}
 	
 	void detonate() {
-		for(int i = 0; i < 100; i++) {
-			checkExplosionKollisions(Game.wAnt[i]);
-			checkExplosionKollisions(Game.mAnt[i]);
-			checkExplosionKollisions(Game.sAnt[i]);
-			checkExplosionKollisions(Game.tank[i]);
+		for(int i = 0; i < Game.wAnt.size(); i++) {
+			checkExplosionKollisions(Game.wAnt.get(i));
+			checkExplosionKollisions(Game.mAnt.get(i));
+			checkExplosionKollisions(Game.sAnt.get(i));
+			checkExplosionKollisions(Game.tank.get(i));
 		}
-		for(int i = 0; i < 100; i++) {
-			if(Game.expl[i].isSpawned() == false) {
-				Game.expl[i].spawn(getX() - getExplosionRange()/2 - getWidth()/2, getY() - getExplosionRange()/2 - getHeight()/2, this);
-				Game.expl[i].start();
-				i = Game.expl.length;
+		for(int i = 0; i < Game.expl.size(); i++) {
+			if(Game.expl.get(i).isSpawned() == false) {
+				Game.expl.get(i).spawn(getX() - getExplosionRange()/2 - getWidth()/2, getY() - getExplosionRange()/2 - getHeight()/2, this);
+				Game.expl.get(i).start();
+				i = Game.expl.size();
 			}
 		}
 		despawn();

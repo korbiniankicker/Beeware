@@ -5,8 +5,9 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JButton;
 
+import com.koko.beeware.Constants;
 import com.koko.beeware.assets.Bilder;
-import com.koko.beeware.game.buttonHandler;
+import com.koko.beeware.game.ButtonHandler;
 
 public class MainMenu {
 
@@ -21,8 +22,8 @@ public class MainMenu {
 	}
 	
 	public void draw(Graphics2D g) {
-		g.drawImage(backgroundTexture, 0, 0, 900, 922, null);
-		buttonHandler.drawButtons(g);
+		g.drawImage(backgroundTexture, 0, 0, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT, null);
+		ButtonHandler.drawButtons(g);
 	}
 
 	//Getter und Setter

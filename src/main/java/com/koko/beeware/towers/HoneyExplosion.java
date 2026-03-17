@@ -2,6 +2,7 @@ package com.koko.beeware.towers;
 
 import java.awt.Graphics2D;
 
+import com.koko.beeware.Constants;
 import com.koko.beeware.assets.Bilder;
 import com.koko.beeware.entities.Projectile;
 
@@ -28,8 +29,8 @@ public class HoneyExplosion {
 			setSrY(y);
 			setX(getSrX());
 			setY(getSrY());
-			setHeight(60);
-			setWidth(60);
+			setHeight(Constants.TILE_SIZE);
+			setWidth(Constants.TILE_SIZE);
 			setSpawned(true);
 			setExt(false);
 		}
@@ -63,8 +64,8 @@ public class HoneyExplosion {
 		despawn();
 		setX(getSrX());
 		setY(getSrY());
-		setHeight(60);
-		setWidth(60);
+		setHeight(Constants.TILE_SIZE);
+		setWidth(Constants.TILE_SIZE);
 		setExt(false);
 	}
 	

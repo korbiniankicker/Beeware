@@ -3,6 +3,7 @@ package com.koko.beeware.game;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import com.koko.beeware.Constants;
 import com.koko.beeware.ui.Gui;
 
 public class ActionHandler implements ActionListener{
@@ -17,18 +18,18 @@ public class ActionHandler implements ActionListener{
 		
 		//Sell button
 		if(e.getSource() == Game.sell) {
-			for(int i = 0; i < 100; i++) {
-				if(Game.bomb[i].isChosen()) {
-					Game.bomb[i].destroy();
+			for(int i = 0; i < Game.bomb.size(); i++) {
+				if(Game.bomb.get(i).isChosen()) {
+					Game.bomb.get(i).destroy();
 				}
-				if(Game.catapult[i].isChosen()) {
-					Game.catapult[i].destroy();
+				if(Game.catapult.get(i).isChosen()) {
+					Game.catapult.get(i).destroy();
 				}
-				if(Game.spike[i].isChosen()) {
-					Game.spike[i].destroy();
+				if(Game.spike.get(i).isChosen()) {
+					Game.spike.get(i).destroy();
 				}
-				if(Game.thrower[i].isChosen()) {
-					Game.thrower[i].destroy();
+				if(Game.thrower.get(i).isChosen()) {
+					Game.thrower.get(i).destroy();
 				}
 			}	
 			Game.sell.setVisible(false);
@@ -36,18 +37,18 @@ public class ActionHandler implements ActionListener{
 		}
 		//Upgrade button
 		if(e.getSource() == Game.upgrade) {
-			for(int i = 0; i < 100; i++) {
-				if(Game.bomb[i].isChosen()) {
-					Game.bomb[i].upgrade();
+			for(int i = 0; i < Game.bomb.size(); i++) {
+				if(Game.bomb.get(i).isChosen()) {
+					Game.bomb.get(i).upgrade();
 				}
-				if(Game.catapult[i].isChosen()) {
-					Game.catapult[i].upgrade();
+				if(Game.catapult.get(i).isChosen()) {
+					Game.catapult.get(i).upgrade();
 				}
-				if(Game.spike[i].isChosen()) {
-					Game.spike[i].upgrade();
+				if(Game.spike.get(i).isChosen()) {
+					Game.spike.get(i).upgrade();
 				}
-				if(Game.thrower[i].isChosen()) {
-					Game.thrower[i].upgrade();
+				if(Game.thrower.get(i).isChosen()) {
+					Game.thrower.get(i).upgrade();
 				}
 			}	
 			Gui.f.requestFocus();
@@ -56,7 +57,7 @@ public class ActionHandler implements ActionListener{
 		if(e.getSource() == Game.backToMainMenu) {
 			if(Game.mainMenu.gamemode == 2) {
 				Game.player.reset();
-				Game.backToMainMenu.setBounds(690, 20, 60, 40);
+				Game.backToMainMenu.setBounds(Constants.WINDOW_WIDTH - 210, 20, 60, 40);
 			}
 			Game.mainMenu.setGamemode(0);
 		}

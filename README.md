@@ -1,8 +1,8 @@
-# Beeware
+# Beeware (CS50 final project)
 #### Video Demo:  <PASTE_URL_HERE>
 #### Description:
 
-Beeware is a small desktop tower-defense game written in Java. The game uses the Swing UI toolkit (Java2D rendering inside a Swing component) and is designed to be distributed as a runnable `.jar` file. In Beeware, the player defends a beehive-themed map by placing towers on a tile grid and surviving enemy waves that follow a path across the map. As enemies are defeated, the player gains resources (honeycomb) that can be spent to place additional towers and upgrade existing ones. The game ends when the player’s health reaches zero (aka. no guard bees are left).
+Beeware is a small desktop tower-defense game written in Java. The game uses the Swing UI toolkit (Java2D rendering inside a Swing component) and is designed to be distributed as a runnable `.jar` file. In Beeware, the player defends a beehive-themed map by placing towers on a tile grid and surviving enemy ant waves that attack the beehive. As enemies are defeated, the player gains resources (honeycomb) that can be spent to place additional towers and upgrade existing ones. The game ends when the player’s health reaches zero (aka. no guard bees are left).
 
 This project was built to practice object-oriented programming, game-loop structure, state management, and packaging a Java application properly. I decided to use Java due to object-oriented programming providing a good logical structure for the game through aspects like inheritence and because we learned and used it in class during years 10 to 12. I used maven (though I didn't use any dependecies) for packaging and compiling the project, learning some of it's core features as it is a useful tool when working with java applications.
 
@@ -82,8 +82,6 @@ Within `src/main/java/com/koko/beeware/`, the project is organized into packages
 
 ### Design choices and trade-offs
 
-#### Maven + conventions
-I chose Maven and the conventional Maven directory layout because it makes the project easier to understand for other Java developers and makes builds reproducible. The `pom.xml` declares how to compile (Java 8 target), how to set the runnable entry point (`Main-Class`), and how to generate a single runnable output JAR. This helps avoid “it only runs in Eclipse” problems and makes the project easier to build on another computer.
 
 #### Centralized game state
 The current design uses a central `Game` class with many shared/static objects. This is straightforward for a small game because any system (UI, loop, entities) can access the current state. The main trade-off is that global state can make the code harder to reason about as the project grows. A future improvement would be to replace some of the global/static access with a `GameState` instance passed into the loop, renderer, and handlers to improve encapsulation and testability.

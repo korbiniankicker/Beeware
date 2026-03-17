@@ -3,6 +3,7 @@ package com.koko.beeware.world;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
+import com.koko.beeware.Constants;
 import com.koko.beeware.assets.Bilder;
 import com.koko.beeware.game.Game;
 
@@ -40,8 +41,8 @@ public class Obsticle {
 	}
 	
 	public void draw(Graphics2D g) {
-		//g.drawImage(texture, tileX*60, tileY*60, null);
-		Bilder.rotate(texture, rot, g, getTileX()*60 - v, getTileY()*60);
+		//g.drawImage(texture, tileX*Constants.TILE_SIZE, tileY*Constants.TILE_SIZE, null);
+		Bilder.rotate(texture, rot, g, getTileX()*Constants.TILE_SIZE - v, getTileY()*Constants.TILE_SIZE);
 	}
 
 	

@@ -47,12 +47,12 @@ public class HoneyPuddle {
 			@Override
 			public void run() {
 				if(isSpawned()) {
-					for(int i = 0; i < 100; i++) {
-						trySlowDown(Game.wAnt[i], i);
-						trySlowDown(Game.mAnt[i], i);
-						trySlowDown(Game.sAnt[i], i);
-						trySlowDown(Game.drone[i], i);
-						trySlowDown(Game.tank[i], i);
+					for(int i = 0; i < Game.wAnt.size(); i++) {
+						trySlowDown(Game.wAnt.get(i), i);
+						trySlowDown(Game.mAnt.get(i), i);
+						trySlowDown(Game.sAnt.get(i), i);
+						trySlowDown(Game.drone.get(i), i);
+						trySlowDown(Game.tank.get(i), i);
 					}
 					checkTimeLeftAlive();
 				}

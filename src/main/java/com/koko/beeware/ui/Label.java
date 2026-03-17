@@ -7,9 +7,10 @@ import java.awt.Graphics2D;
 
 import javax.swing.JLabel;
 
+import com.koko.beeware.Constants;
 import com.koko.beeware.assets.Bilder;
 import com.koko.beeware.game.Game;
-import com.koko.beeware.game.buttonHandler;
+import com.koko.beeware.game.ButtonHandler;
 
 @SuppressWarnings("serial")
 public class Label extends JLabel {
@@ -24,34 +25,34 @@ public class Label extends JLabel {
 //In-Game
 	case 1: 
 		//Generelles
-				buttonHandler.drawButtons(g);
+				ButtonHandler.drawButtons(g);
 		
 		//Map
 		Game.grid.draw(g);
-		for(int i = 0; i < Game.obsticles.length; i++) {
-			if(Game.obsticles[i].isSpawned())
-				Game.obsticles[i].draw(g);
+		for(int i = 0; i < Game.obsticles.size(); i++) {
+			if(Game.obsticles.get(i).isSpawned())
+				Game.obsticles.get(i).draw(g);
 			}
 		
 		//Honigpfuetze
-		for(int i = 0; i < Game.thrower.length; i++) {
-			Game.puddle[i].draw(g);
+		for(int i = 0; i < Game.thrower.size(); i++) {
+			Game.puddle.get(i).draw(g);
 		}
 		//gegner
-				for(int i = 0; i < 100; i++) {
-					Game.tank[i].draw(g);	
+				for(int i = 0; i < Game.tank.size(); i++) {
+					Game.tank.get(i).draw(g);	
 				}	
-				for(int i = 0; i < 100; i++) {
-					Game.wAnt[i].draw(g);
+				for(int i = 0; i < Game.wAnt.size(); i++) {
+					Game.wAnt.get(i).draw(g);
 				}
-				for(int i = 0; i < 100; i++) {
-					Game.mAnt[i].draw(g);
+				for(int i = 0; i < Game.mAnt.size(); i++) {
+					Game.mAnt.get(i).draw(g);
 				}
-				for(int i = 0; i < 100; i++) {
-					Game.sAnt[i].draw(g);
+				for(int i = 0; i < Game.sAnt.size(); i++) {
+					Game.sAnt.get(i).draw(g);
 				}
-				for(int i = 0; i < 100; i++) {
-					Game.drone[i].draw(g);
+				for(int i = 0; i < Game.drone.size(); i++) {
+					Game.drone.get(i).draw(g);
 				}
 					
 
@@ -59,29 +60,29 @@ public class Label extends JLabel {
 		Game.player.draw(g);
 		
 		//Tuerme
-		for(int i = 0; i < Game.thrower.length; i++) {
-			Game.thrower[i].draw(g);
+		for(int i = 0; i < Game.thrower.size(); i++) {
+			Game.thrower.get(i).draw(g);
 		}
-		for(int i = 0; i < Game.catapult.length; i++) {
-			Game.catapult[i].draw(g);
+		for(int i = 0; i < Game.catapult.size(); i++) {
+			Game.catapult.get(i).draw(g);
 		}
-		for(int i = 0; i < Game.expl.length; i++) {
-			Game.expl[i].draw(g);
+		for(int i = 0; i < Game.expl.size(); i++) {
+			Game.expl.get(i).draw(g);
 		}
-		for(int i = 0; i < Game.bomb.length; i++) {
-			Game.bomb[i].draw(g);
+		for(int i = 0; i < Game.bomb.size(); i++) {
+			Game.bomb.get(i).draw(g);
 		}
-		for(int i = 0; i < Game.bomb.length; i++) {
-			Game.spike[i].draw(g);
+		for(int i = 0; i < Game.bomb.size(); i++) {
+			Game.spike.get(i).draw(g);
 		}
-		for(int i = 0; i < Game.projectiles.length; i++) {
-			Game.projectiles[i].draw(g);
+		for(int i = 0; i < Game.projectiles.size(); i++) {
+			Game.projectiles.get(i).draw(g);
 		}
 		
 		
 		//Bees
 		for(int i = 0; i < Game.player.getHP(); i++) {
-			Game.bee[i].draw(g);
+			Game.bee.get(i).draw(g);
 		}
 		
 		//stats
@@ -94,22 +95,22 @@ public class Label extends JLabel {
 		
 		//Menu der Tuerme
 		//Generelles
-		buttonHandler.drawButtons(g);
-				for(int i = 0; i < Game.thrower.length; i++) {
-					if(Game.thrower[i].isChosen())
-					Game.thrower[i].drawMenu(g);
+		ButtonHandler.drawButtons(g);
+				for(int i = 0; i < Game.thrower.size(); i++) {
+					if(Game.thrower.get(i).isChosen())
+					Game.thrower.get(i).drawMenu(g);
 				}
-				for(int i = 0; i < Game.catapult.length; i++) {
-					if(Game.catapult[i].isChosen())
-						Game.catapult[i].drawMenu(g);
+				for(int i = 0; i < Game.catapult.size(); i++) {
+					if(Game.catapult.get(i).isChosen())
+						Game.catapult.get(i).drawMenu(g);
 				}
-				for(int i = 0; i < Game.bomb.length; i++) {
-					if(Game.bomb[i].isChosen())
-						Game.bomb[i].drawMenu(g);
+				for(int i = 0; i < Game.bomb.size(); i++) {
+					if(Game.bomb.get(i).isChosen())
+						Game.bomb.get(i).drawMenu(g);
 				}
-				for(int i = 0; i < Game.bomb.length; i++) {
-					if(Game.spike[i].isChosen())
-						Game.spike[i].drawMenu(g);;
+				for(int i = 0; i < Game.bomb.size(); i++) {
+					if(Game.spike.get(i).isChosen())
+						Game.spike.get(i).drawMenu(g);;
 				}
 		
 		break;
@@ -117,22 +118,21 @@ public class Label extends JLabel {
 	case 0:
 			Game.mainMenu.draw(g);
 			//Generelles
-			buttonHandler.drawButtons(g);
+			ButtonHandler.drawButtons(g);
 		break;
 	
 //Game Over
 	case 2:
 			g.setColor(new Color(30, 30, 30, 255));
-			g.fillRect(0, 0, 922, 922);
-			g.drawImage(Bilder.gameOver, 0, 0, 900, 922, null);
+			g.fillRect(0, 0, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
+			g.drawImage(Bilder.gameOver, 0, 0, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT, null);
 			g.setColor(Color.black);
 			g.setFont(new Font("Noteworthy",Font.BOLD, 100));
 			g.drawString("Game Over", 210, 390);
 			//Generelles
-			buttonHandler.drawButtons(g);
+			ButtonHandler.drawButtons(g);
 		break;
 	}
-	
-	repaint();		
+
 	}
 }

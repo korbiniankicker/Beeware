@@ -12,7 +12,7 @@ public class Main {
 			new Bilder();
 			new Game();
 			new GameLoop();
-			new Gui(900, 922);
+			new Gui(Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
 		}
 	
 }

@@ -19,7 +19,6 @@ public class HoneyPuddleThrower extends Tower{
 		setExplRange(0);
 		setPuddleSpawner(true);
 		setSlowPerc(getLvl().slowDownRate);
-		setTarget(Game.wAnt[0]);
 	}
 	
 }

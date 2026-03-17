@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
+import com.koko.beeware.Constants;
 import com.koko.beeware.assets.Bilder;
 import com.koko.beeware.game.Game;
 import com.koko.beeware.towers.HoneyPuddle;
@@ -41,7 +42,7 @@ public abstract class Enemy {
 	public void moveToNextTile() {
 		if(getMovTime() <= 0) {
 			if(dirX > 0) {
-				if(getX() < (getCurXTile() + 1)*60 + (60-getWidth())/2) {
+				if(getX() < (getCurXTile() + 1)*Constants.TILE_SIZE + (Constants.TILE_SIZE-getWidth())/2) {
 					x += 1 * getSpeed() + 1;
 				}
 				else {
@@ -51,7 +52,7 @@ public abstract class Enemy {
 			}
 			
 			else if(dirX < 0) {
-				if(getX() > (getCurXTile() - 1)*60 + (60-getWidth())/2) {
+				if(getX() > (getCurXTile() - 1)*Constants.TILE_SIZE + (Constants.TILE_SIZE-getWidth())/2) {
 					x -= (1 * getSpeed() + 1);
 				}
 				else {
@@ -61,7 +62,7 @@ public abstract class Enemy {
 			}
 			
 			else if(dirY > 0) {
-				if(getY() < (getCurYTile() + 1)*60 + (60-getHeight())/2) {
+				if(getY() < (getCurYTile() + 1)*Constants.TILE_SIZE + (Constants.TILE_SIZE-getHeight())/2) {
 					y += (1 * getSpeed() + 1);				
 				}
 				else {
@@ -71,7 +72,7 @@ public abstract class Enemy {
 			}
 			
 			else if(dirY < 0) {
-				if(getY() > (getCurYTile() - 1)*60 + (60-getHeight())/2) {
+				if(getY() > (getCurYTile() - 1)*Constants.TILE_SIZE + (Constants.TILE_SIZE-getHeight())/2) {
 					y -= (1 * getSpeed() + 1);
 				}
 				else {
@@ -82,7 +83,7 @@ public abstract class Enemy {
 			setMovTime(getMovDur());
 		}
 		else {
-			setMovTime(getMovTime() - 10);
+			setMovTime(getMovTime() - Constants.TICK_MS);
 		}
 		
 	}
@@ -90,7 +91,7 @@ public abstract class Enemy {
 	//findet naechste Platte
 	public void findPath() {
 			if(getDirX() == 1) {
-				if(getCurYTile() > 0 && getCurXTile() < 15 && getCurYTile() < 15) {
+				if(getCurYTile() > 0 && getCurXTile() < Constants.GRID_SIZE && getCurYTile() < Constants.GRID_SIZE) {
 				if(Game.grid.map[getCurXTile() + 1][getCurYTile()].getType() == TileType.Dirt || Game.grid.map[getCurXTile() + 1][getCurYTile()].getType() == TileType.Trap) {
 					setDirX(1);
 					setRot(90);
@@ -114,7 +115,7 @@ public abstract class Enemy {
 			}
 			
 			else if(getDirX() == -1) {
-				if(getCurXTile() > 0 && getCurYTile() > 0 && getCurYTile() < 15) {
+				if(getCurXTile() > 0 && getCurYTile() > 0 && getCurYTile() < Constants.GRID_SIZE) {
 				if(Game.grid.map[getCurXTile() - 1][getCurYTile()].getType() == TileType.Dirt || Game.grid.map[getCurXTile() - 1][getCurYTile()].getType() == TileType.Trap) {
 					setDirX(-1);
 					setRot(-90);
@@ -138,7 +139,7 @@ public abstract class Enemy {
 			}
 			
 			else if(getDirY() == 1) {
-			if(getCurXTile() > 0 && getCurXTile() < 15 && getCurYTile() < 15) {
+			if(getCurXTile() > 0 && getCurXTile() < Constants.GRID_SIZE && getCurYTile() < Constants.GRID_SIZE) {
 				if(Game.grid.map[getCurXTile()][getCurYTile() + 1].getType() == TileType.Dirt || Game.grid.map[getCurXTile()][getCurYTile() + 1].getType() == TileType.Trap) {
 					setDirY(1);
 					setRot(180);
@@ -162,7 +163,7 @@ public abstract class Enemy {
 			}
 			
 			else if(getDirY() == -1) {
-				if(getCurXTile() > 0 && getCurYTile() > 0 && getCurXTile() < 15) {
+				if(getCurXTile() > 0 && getCurYTile() > 0 && getCurXTile() < Constants.GRID_SIZE) {
 				if(Game.grid.map[getCurXTile()][getCurYTile() - 1].getType() == TileType.Dirt || Game.grid.map[getCurXTile()][getCurYTile() - 1].getType() == TileType.Trap) {
 					setDirY(-1);
 					setRot(0);

@@ -2,6 +2,7 @@ package com.koko.beeware.world;
 
 import java.awt.Graphics2D;
 
+import com.koko.beeware.Constants;
 
 public class TileGrid {
 
@@ -27,25 +28,25 @@ public class TileGrid {
 
 		
 	public TileGrid(int[][] newMap) {
-		map = new Tile[15][15];
+		map = new Tile[Constants.GRID_SIZE][Constants.GRID_SIZE];
 		for(int i = 0; i < map.length; i++) {
 			for(int m = 0; m < map[i].length; m++) {
 				if(newMap[i][m] == 0) {
-					map[m][i] = new Tile(m*60, i*60, TileType.Grass);
+					map[m][i] = new Tile(m*Constants.TILE_SIZE, i*Constants.TILE_SIZE, TileType.Grass);
 				}
 				else if (newMap[i][m] == 1){
-					map[m][i] = new Tile(m*60, i*60, TileType.Dirt);
+					map[m][i] = new Tile(m*Constants.TILE_SIZE, i*Constants.TILE_SIZE, TileType.Dirt);
 				}
 				else if (newMap[i][m] == 2){
-					map[m][i] = new Tile(m*60, i*60, TileType.Tower);
+					map[m][i] = new Tile(m*Constants.TILE_SIZE, i*Constants.TILE_SIZE, TileType.Tower);
 				}
 			}
 		}
 	}
 	public void draw(Graphics2D g) {
-		for(int i = 0; i < 15; i++) {
-			for(int m = 0; m < 15; m++) {
-					g.drawImage( map[m][i].getType().textureName, map[m][i].getX(), map[m][i].getY(), 60, 60, null);
+		for(int i = 0; i < Constants.GRID_SIZE; i++) {
+			for(int m = 0; m < Constants.GRID_SIZE; m++) {
+					g.drawImage( map[m][i].getType().textureName, map[m][i].getX(), map[m][i].getY(), Constants.TILE_SIZE, Constants.TILE_SIZE, null);
 			}
 		}
 	}

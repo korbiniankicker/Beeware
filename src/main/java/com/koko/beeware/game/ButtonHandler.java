@@ -5,12 +5,13 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JButton;
 
+import com.koko.beeware.Constants;
 import com.koko.beeware.assets.Bilder;
 
 
-public class buttonHandler {
+public class ButtonHandler {
 
-	public static boolean pressed[] = new boolean[100];
+	public static boolean pressed[] = new boolean[Constants.UI_BUTTON_SLOTS];
 	
 	//Handled das erscheinen der Buttons
 	public void handleButtons() {
@@ -34,7 +35,7 @@ public class buttonHandler {
 			Game.startWave.setVisible(false);
 			Game.menu.setVisible(false);
 			setMainMenuButtons(false);
-			Game.backToMainMenu.setBounds(400, 430, 100, 60);
+			Game.backToMainMenu.setBounds(Constants.WINDOW_WIDTH / 2 - 50, 430, 100, 60);
 			Game.backToMainMenu.setVisible(true);
 			break;
 		}
